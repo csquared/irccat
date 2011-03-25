@@ -88,6 +88,8 @@ module IrcCat
           message = request.params["message"]
         end
 
+        message.gsub!(/\s+/,' ')
+
         if channel = request.params["channel"]
           @bot.join_channel("##{channel}", request.params["key"])
           @bot.say("##{channel}", message)
