@@ -1,4 +1,4 @@
-gbin
-vendor/gems
-pkg
-tmp
+*.gem
+.bundle
+Gemfile.lock
+pkg/*

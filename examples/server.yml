@@ -1,25 +1,25 @@
 # IRC connection 
 irc:
-  host: 'irc.tty2.org'
+  host: 'irc.freenode.net'
   port: '6667'
   nick: irc_cat
-  pass: foo
   channels:
-  - "#irc_cat"
+  - "#austinhackerspace"
   # This is a channel with a key
   #- "#secret password"
 
 # HTTP Server
 http:
   enabled: true
-  user: http_user
-  pass: http_pass
+#  user: http_user
+#  pass: http_pass
   host: 0.0.0.0
   port: '3489'
   # Enable post-receive stuff from Github
   github: true
   # Allow send with http
   send: true
+  message_param: Message
 
 # TCP Server
 tcp:

@@ -11,7 +11,7 @@ module IrcCat
       @host, @port, @nick, @nick_pass = host, port, nick, nick_pass
       @online, @connect_block = false, block
 
-      @realname = "irccat v#{VERSION::STRING}"
+      @realname = "irccat v#{VERSION}"
       @refresh_rate = 10
       @channels = {}
 

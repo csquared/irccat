@@ -37,10 +37,10 @@ raise "Can't read configuration file (#{options[:config_filename]})" unless File
 config = YAML.load_file(options[:config_filename])
 
 lib_dir = File.dirname(__FILE__) + '/../lib/'
-require lib_dir + '/irc_cat'
+require lib_dir + '/irccat'
 
 threads = []
-puts "irccat #{IrcCat::VERSION::STRING} (http://irccat.rubyforge.org/)"
+puts "irccat #{IrcCat::VERSION} (http://irccat.rubyforge.org/)"
 
 Thread.abort_on_exception = true
 
@@ -54,13 +54,14 @@ IrcCat::Bot.run(irc_config['host'], irc_config['port'], irc_config['nick'], irc_
 
   tcp_config = config['tcp']
   if tcp_config['enabled']
-    require lib_dir + 'irc_cat/tcp_server'
+    require lib_dir + 'irccat/tcp_server'
     IrcCat::TcpServer.run(bot, tcp_config)
   end
 
   http_config = config['http']
+  http_config['channels'] = config['irc']['channels']
   if http_config['enabled']
-    require lib_dir + 'irc_cat/http_server'
+    require lib_dir + 'irccat/http_server'
     IrcCat::HttpServer.run(bot, http_config)
   end
 end

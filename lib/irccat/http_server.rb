@@ -82,14 +82,23 @@ module IrcCat
       when "/send"
         raise "Send support is not enabled" unless @config["send"]
 
-        message = request.params["message"]
+        if @config['message_param']
+          message = request.params[@config['message_param']]
+        else
+          message = request.params["message"]
+        end
+
         if channel = request.params["channel"]
           @bot.join_channel("##{channel}", request.params["key"])
           @bot.say("##{channel}", message)
         elsif nick = request.params["nick"]
           @bot.say(nick, message)
+        elsif channels = @config['channels']
+          channels.each do |channel|
+            @bot.say(channel, message)
+          end
         else
-          raise "Unknown action"
+          raise "Unkown action"
         end
 
         [200, {"Content-Type" => "text/plain"}, "OK"]
