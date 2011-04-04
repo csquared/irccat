@@ -15,7 +15,14 @@ module IrcCat
       host, port = @config['host'], @config['port']
       if handler = Rack::Handler.get(handler_name)
         Thread.new {
-          handler.run(app, :Host => host, :Port => port)
+          begin 
+            handler.run(app, :Host => host, :Port => port)
+          rescue Exception => e
+            puts e.message
+            puts e.backtace
+            sleep 1
+            retry
+          end
         }
       else
         raise "Could not find a valid Rack handler for #{handler_name.inspect}"
